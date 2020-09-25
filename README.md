@@ -23,7 +23,7 @@ You can also go to Settings and turn off notifications for Termux if you find it
 This is the command to be entered in step 2:
 
 ```shell
-apt update && apt upgrade; pkg install wget; cd ..; wget -O mysql.tar.gz "https://github.com/TheLastAirbendr/mysql-for-termux/archive/v2.0.2.tar.gz"; tar -xzf mysql.tar.gz -C home --strip-components 1 && rm mysql.tar.gz && cd home && rm -r images && rm README.md; chmod u+x installer.sh; ./installer.sh; source ~/../usr/etc/bash.bashrc; rm installer.sh
+pkg update && pkg upgrade && pkg install git && cd $HOME && git clone "https://github.com/TheLastAirbendr/mysql-for-termux" && cd mysql-for-termux && chmod u+x installer.sh && ./installer.sh && source $HOME/../usr/etc/bash.bashrc
 ```
 
 ## Troubleshooting Errors
