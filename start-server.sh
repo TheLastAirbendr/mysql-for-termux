@@ -1,19 +1,14 @@
 #!/bin/bash
 
-output=$(ps ax -o pid= -o comm= | grep mysqld_safe)
+res1=$(ps -e -o pid= -o comm= | grep mysqld_safe)
+res2=$(ps -e -o pid= -o comm= | grep mariadb)
 
-if [ ! -n "$output" ]
+if [ -n "$res1" -a -n "$res2" ]
 then
-        echo "MySQL server is not running"
-        echo "Starting..."
-        useless=$(mysqld_safe -u root &)
-        code=$?
-        if [ $code -eq 0 ]
-        then
-                echo "MySQL server started successfully"
-        else
-                echo "MySQL server failed to start (code:${code})"
-        fi
-else
-        echo "MySQL server is already running"
+        IFS=" " read -r -a pid1  <<< "$res1"
+        IFS=" " read -r -a pid2 <<< "$res2"
+
+        kill -9 $pid1 $pid2
 fi
+
+useless=$(mysqld_safe -u root &)
